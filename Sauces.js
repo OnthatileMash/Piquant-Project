@@ -20,1163 +20,199 @@ Contains
 ====================================================
 */
 
+
 "use strict";
 
-/*==================================================
-DOM ELEMENTS
-==================================================*/
-
-const header = document.querySelector("#main-header");
-
-const navigationLinks = document.querySelectorAll(
-".quick-card, .navigation a"
-);
-
-const productCards = document.querySelectorAll(
-".product-card"
-);
-
-const revealElements = document.querySelectorAll(
-
-".product-card, \
-.quick-card, \
-.sauce-showcase, \
-.flavour-profile, \
-.nutrition-section"
-
-);
-
-const galleryContainers = document.querySelectorAll(
-
-".sauce-gallery"
-
-);
-
-/*==================================================
-INITIALISE
-==================================================*/
-
 document.addEventListener("DOMContentLoaded", () => {
+    const header = document.getElementById("main-header");
+    const toggleBtn = document.getElementById("header-toggle");
+    const loader = document.querySelector(".page-loader");
+    const backToTop = document.getElementById("back-to-top");
 
-    initialisePage();
+    initialiseHeader(header);
+    initialiseMobileMenu(header, toggleBtn);
+    initialiseSmoothScroll();
+    initialiseRevealAnimations();
+    initialiseGallerySwitching();
+    initialiseFaqAccordion();
+    initialiseBackToTop(backToTop);
+    initialiseLazyLoading();
+    initialiseActiveNavState();
 
+    window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+        if (loader) {
+            window.setTimeout(() => loader.classList.add("loaded"), 400);
+        }
+    });
 });
 
-/*==================================================
-INITIALISE FUNCTIONS
-==================================================*/
+function initialiseHeader(header) {
+    if (!header) return;
 
-function initialisePage(){
+    const onScroll = () => {
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        const threshold = isMobile ? 24 : 80;
 
-    initialiseHeader();
+        if (window.scrollY > threshold) {
+            header.classList.add("minimized");
+        } else {
+            header.classList.remove("minimized");
+        }
+    };
 
-    initialiseSmoothScroll();
-
-    initialiseNavigationHighlight();
-
-    initialiseRevealAnimations();
-
-    initialiseProductCards();
-
-    initialiseGallery();
-
-    initialiseHeroAnimation();
-
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    onScroll();
 }
 
-/*==================================================
-HEADER
-==================================================*/
+function initialiseMobileMenu(header, toggleBtn) {
+    if (!header || !toggleBtn) return;
 
-function initialiseHeader(){
-
-    if(!header) return;
-
-    window.addEventListener("scroll", ()=>{
-
-        if(window.scrollY > 80){
-
-            header.classList.add("minimized");
-
-        }
-
-        else{
-
-            header.classList.remove("minimized");
-
-        }
-
+    toggleBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = header.classList.toggle("expanded");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
     });
 
+    document.addEventListener("click", (event) => {
+        if (header.classList.contains("expanded") && !header.contains(event.target)) {
+            header.classList.remove("expanded");
+            toggleBtn.setAttribute("aria-expanded", "false");
+        }
+    });
+
+    header.querySelectorAll(".nav-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+            header.classList.remove("expanded");
+            toggleBtn.setAttribute("aria-expanded", "false");
+        });
+    });
 }
 
-/*==================================================
-SMOOTH SCROLL
-==================================================*/
-
-function initialiseSmoothScroll(){
-
-    navigationLinks.forEach(link=>{
-
+function initialiseSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
         const href = link.getAttribute("href");
+        if (!href || href === "#") return;
 
-        if(!href) return;
-
-        if(!href.startsWith("#")) return;
-
-        link.addEventListener("click",(event)=>{
+        link.addEventListener("click", (event) => {
+            const target = document.querySelector(href);
+            if (!target) return;
 
             event.preventDefault();
-
-            const target = document.querySelector(href);
-
-            if(!target) return;
-
-            target.scrollIntoView({
-
-                behavior:"smooth",
-
-                block:"start"
-
-            });
-
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
         });
-
     });
-
 }
 
-/*==================================================
-ACTIVE NAVIGATION
-==================================================*/
-
-function initialiseNavigationHighlight(){
-
-    const sections = document.querySelectorAll(
-
-        "section[id]"
-
+function initialiseRevealAnimations() {
+    const elements = document.querySelectorAll(
+        ".reveal, .product-card, .quick-card, .sauce-showcase, .nutrition-card, .comparison-wrapper, .faq-item"
     );
 
-    if(!sections.length) return;
-
-    window.addEventListener("scroll",()=>{
-
-        let currentSection="";
-
-        sections.forEach(section=>{
-
-            const top = section.offsetTop - 150;
-
-            const height = section.offsetHeight;
-
-            if(
-
-                pageYOffset >= top &&
-
-                pageYOffset < top + height
-
-            ){
-
-                currentSection = section.id;
-
-            }
-
-        });
-
-        navigationLinks.forEach(link=>{
-
-            link.classList.remove("active");
-
-            const href = link.getAttribute("href");
-
-            if(href === "#" + currentSection){
-
-                link.classList.add("active");
-
-            }
-
-        });
-
-    });
-
-}
-
-/*==================================================
-HERO FADE
-==================================================*/
-
-function initialiseHeroAnimation(){
-
-    const hero = document.querySelector(".hero-overlay");
-
-    if(!hero) return;
-
-    hero.style.opacity="0";
-
-    hero.style.transform="translateY(50px)";
-
-    setTimeout(()=>{
-
-        hero.style.transition="all 1s ease";
-
-        hero.style.opacity="1";
-
-        hero.style.transform="translateY(0)";
-
-    },300);
-
-}
-
-/*==================================================
-REVEAL ANIMATIONS
-==================================================*/
-
-function initialiseRevealAnimations(){
-
-    if(!("IntersectionObserver" in window)) return;
-
-    const observer = new IntersectionObserver(
-
-        (entries)=>{
-
-            entries.forEach(entry=>{
-
-                if(entry.isIntersecting){
-
-                    entry.target.classList.add(
-
-                        "fade-up"
-
-                    );
-
-                    observer.unobserve(entry.target);
-
-                }
-
-            });
-
-        },
-
-        {
-
-            threshold:0.15
-
-        }
-
-    );
-
-    revealElements.forEach(element=>{
-
-        observer.observe(element);
-
-    });
-
-}
-
-/*==================================================
-PRODUCT CARD EFFECTS
-==================================================*/
-
-function initialiseProductCards(){
-
-    productCards.forEach(card=>{
-
-        card.addEventListener(
-
-            "mouseenter",
-
-            ()=>{
-
-                card.style.transform =
-
-                "translateY(-12px)";
-
-            }
-
-        );
-
-        card.addEventListener(
-
-            "mouseleave",
-
-            ()=>{
-
-                card.style.transform =
-
-                "";
-
-            }
-
-        );
-
-    });
-
-}
-
-/*==================================================
-GALLERY
-==================================================*/
-
-function initialiseGallery(){
-
-    galleryContainers.forEach(gallery=>{
-
-        const mainImage =
-
-        gallery.querySelector(
-
-            ".main-image img"
-
-        );
-
-        const thumbnails =
-
-        gallery.querySelectorAll(
-
-            ".thumbnail-gallery img"
-
-        );
-
-        if(!mainImage) return;
-
-        thumbnails.forEach(thumbnail=>{
-
-            thumbnail.addEventListener(
-
-                "click",
-
-                ()=>{
-
-                    const source = thumbnail.src;
-
-                    const alt = thumbnail.alt;
-
-                    mainImage.src = source;
-
-                    mainImage.alt = alt;
-
-                }
-
-            );
-
-        });
-
-    });
-
-}
-
-/*==================================================
-UTILITY
-==================================================*/
-
-function scrollToElement(selector){
-
-    const element =
-
-    document.querySelector(selector);
-
-    if(!element) return;
-
-    element.scrollIntoView({
-
-        behavior:"smooth"
-
-    });
-
-}
-
-/*==================================================
-WINDOW LOAD
-==================================================*/
-
-window.addEventListener(
-
-    "load",
-
-    ()=>{
-
-        document.body.classList.add(
-
-            "loaded"
-
-        );
-
+    if (!("IntersectionObserver" in window)) {
+        elements.forEach((element) => element.classList.add("is-visible"));
+        return;
     }
 
-);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
 
-/*
-====================================================
-PIQUANT CHILLI SAUCE
-SAUCES.JS
-PART 2
+    elements.forEach((element) => observer.observe(element));
+}
 
-Contains
+function initialiseGallerySwitching() {
+    document.querySelectorAll(".sauce-gallery").forEach((gallery) => {
+        const mainImage = gallery.querySelector(".main-image img");
+        const thumbnails = gallery.querySelectorAll(".thumb-button");
 
-✓ FAQ Accordion
-✓ Scroll Progress Bar
-✓ Scroll To Top Button
-✓ Floating WhatsApp Animation
-✓ Counter Animation
-✓ Flavour Meter Animation
-✓ Utility Functions
+        if (!mainImage || !thumbnails.length) return;
 
-====================================================
-*/
+        thumbnails.forEach((thumb) => {
+            thumb.addEventListener("click", () => {
+                const src = thumb.getAttribute("data-src");
+                const alt = thumb.getAttribute("data-alt") || "";
+                if (!src) return;
 
-"use strict";
+                mainImage.src = src;
+                mainImage.alt = alt;
+            });
+        });
+    });
+}
 
-/*==================================================
-DOM ELEMENTS
-==================================================*/
+function initialiseFaqAccordion() {
+    document.querySelectorAll(".faq-item").forEach((item) => {
+        const button = item.querySelector(".faq-question");
+        if (!button) return;
 
-const faqItems = document.querySelectorAll(".faq-item");
+        button.addEventListener("click", () => {
+            const isActive = item.classList.contains("active");
 
-const progressBar = document.querySelector(".progress-bar");
-
-const scrollTopButton = document.querySelector(".scroll-top");
-
-const whatsappButton = document.querySelector(".whatsapp-float");
-
-const counters = document.querySelectorAll(".counter");
-
-const flavourMeters = document.querySelectorAll(".fill");
-
-/*==================================================
-INITIALISE
-==================================================*/
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    initialiseFAQ();
-
-    initialiseProgressBar();
-
-    initialiseScrollTop();
-
-    initialiseWhatsApp();
-
-    initialiseCounters();
-
-    initialiseFlavourMeters();
-
-});
-
-/*==================================================
-FAQ ACCORDION
-==================================================*/
-
-function initialiseFAQ(){
-
-    faqItems.forEach(item=>{
-
-        const question = item.querySelector(".faq-question");
-
-        if(!question) return;
-
-        question.addEventListener("click",()=>{
-
-            faqItems.forEach(faq=>{
-
-                if(faq!==item){
-
-                    faq.classList.remove("active");
-
-                }
-
+            document.querySelectorAll(".faq-item.active").forEach((openItem) => {
+                openItem.classList.remove("active");
+                const openButton = openItem.querySelector(".faq-question");
+                if (openButton) openButton.setAttribute("aria-expanded", "false");
             });
 
-            item.classList.toggle("active");
-
+            if (!isActive) {
+                item.classList.add("active");
+                button.setAttribute("aria-expanded", "true");
+            }
         });
-
     });
-
 }
 
-/*==================================================
-SCROLL PROGRESS BAR
-==================================================*/
+function initialiseBackToTop(button) {
+    if (!button) return;
 
-function initialiseProgressBar(){
-
-    if(!progressBar) return;
-
-    window.addEventListener("scroll",()=>{
-
-        const scrollTop = document.documentElement.scrollTop;
-
-        const pageHeight =
-
-            document.documentElement.scrollHeight -
-
-            document.documentElement.clientHeight;
-
-        const progress =
-
-            (scrollTop / pageHeight) * 100;
-
-        progressBar.style.width = progress + "%";
-
-    });
-
-}
-
-/*==================================================
-SCROLL TO TOP BUTTON
-==================================================*/
-
-function initialiseScrollTop(){
-
-    if(!scrollTopButton) return;
-
-    window.addEventListener("scroll",()=>{
-
-        if(window.scrollY > 600){
-
-            scrollTopButton.classList.add("show");
-
+    const onScroll = () => {
+        if (window.scrollY > 700) {
+            button.classList.add("visible");
+        } else {
+            button.classList.remove("visible");
         }
+    };
 
-        else{
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
 
-            scrollTopButton.classList.remove("show");
+    button.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+}
 
+function initialiseLazyLoading() {
+    document.querySelectorAll("img").forEach((image) => {
+        if (!image.hasAttribute("loading")) {
+            image.loading = "lazy";
         }
-
     });
-
-    scrollTopButton.addEventListener("click",(event)=>{
-
-        event.preventDefault();
-
-        window.scrollTo({
-
-            top:0,
-
-            behavior:"smooth"
-
-        });
-
-    });
-
 }
 
-/*==================================================
-WHATSAPP BUTTON EFFECT
-==================================================*/
+function initialiseActiveNavState() {
+    const navLinks = document.querySelectorAll(".nav-menu a");
+    const sections = document.querySelectorAll("section[id]");
 
-function initialiseWhatsApp(){
+    if (!navLinks.length || !sections.length) return;
 
-    if(!whatsappButton) return;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
 
-    let direction = 1;
+            const currentId = entry.target.id;
 
-    setInterval(()=>{
-
-        whatsappButton.style.transform =
-
-            `translateY(${direction * -6}px)`;
-
-        direction *= -1;
-
-    },800);
-
-}
-
-/*==================================================
-COUNTER ANIMATION
-==================================================*/
-
-function initialiseCounters(){
-
-    if(!("IntersectionObserver" in window)) return;
-
-    const observer = new IntersectionObserver(
-
-        entries=>{
-
-            entries.forEach(entry=>{
-
-                if(entry.isIntersecting){
-
-                    animateCounter(entry.target);
-
-                    observer.unobserve(entry.target);
-
-                }
-
+            navLinks.forEach((link) => {
+                link.classList.toggle("active", link.getAttribute("href") === `#${currentId}`);
             });
+        });
+    }, { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 });
 
-        },
-
-        {
-
-            threshold:0.4
-
-        }
-
-    );
-
-    counters.forEach(counter=>{
-
-        observer.observe(counter);
-
-    });
-
-}
-
-function animateCounter(counter){
-
-    const target =
-
-        Number(counter.dataset.target);
-
-    const duration = 1800;
-
-    const step = target / (duration / 16);
-
-    let current = 0;
-
-    function update(){
-
-        current += step;
-
-        if(current >= target){
-
-            counter.textContent = target;
-
-            return;
-
-        }
-
-        counter.textContent = Math.floor(current);
-
-        requestAnimationFrame(update);
-
+    sections.forEach((section) => observer.observe(section));
     }
-
-    update();
-
-}
-
-/*==================================================
-FLAVOUR METER ANIMATION
-==================================================*/
-
-function initialiseFlavourMeters(){
-
-    if(!("IntersectionObserver" in window)) return;
-
-    const observer = new IntersectionObserver(
-
-        entries=>{
-
-            entries.forEach(entry=>{
-
-                if(entry.isIntersecting){
-
-                    animateMeter(entry.target);
-
-                    observer.unobserve(entry.target);
-
-                }
-
-            });
-
-        },
-
-        {
-
-            threshold:0.4
-
-        }
-
-    );
-
-    flavourMeters.forEach(meter=>{
-
-        observer.observe(meter);
-
-    });
-
-}
-
-function animateMeter(meter){
-
-    const finalWidth =
-
-        window.getComputedStyle(meter).width;
-
-    meter.style.width = "0";
-
-    setTimeout(()=>{
-
-        meter.style.transition =
-
-            "width 1.5s ease";
-
-        meter.style.width = finalWidth;
-
-    },150);
-
-}
-
-/*==================================================
-UTILITY
-==================================================*/
-
-function debounce(callback, delay){
-
-    let timer;
-
-    return function(){
-
-        clearTimeout(timer);
-
-        timer = setTimeout(
-
-            ()=>callback.apply(this, arguments),
-
-            delay
-
-        );
-
-    };
-
-}
-
-/*==================================================
-WINDOW RESIZE
-==================================================*/
-
-window.addEventListener(
-
-    "resize",
-
-    debounce(()=>{
-
-        console.log("Window resized.");
-
-    },250)
-
-);
-
-/*
-=========================================================
-PIQUANT CHILLI SAUCE
-SAUCES.JS
-PART 3
-
-Contains
-
-✓ Lightbox Gallery
-✓ Recipe Filtering
-✓ Product Comparison Highlighting
-✓ Lazy Loading
-✓ Keyboard Accessibility
-✓ Touch Swipe Gallery
-✓ Performance Optimisations
-
-=========================================================
-*/
-
-"use strict";
-
-/*=========================================================
-DOM ELEMENTS
-=========================================================*/
-
-const galleryImages = document.querySelectorAll(".gallery-image");
-
-const lightbox = document.querySelector(".lightbox");
-
-const lightboxImage = document.querySelector(".lightbox img");
-
-const lightboxClose = document.querySelector(".lightbox-close");
-
-const recipeButtons = document.querySelectorAll(".recipe-filter button");
-
-const recipeCards = document.querySelectorAll(".recipe-card");
-
-const comparisonRows = document.querySelectorAll(".comparison-table tbody tr");
-
-/*=========================================================
-INITIALISE
-=========================================================*/
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    initialiseLightbox();
-
-    initialiseRecipeFilter();
-
-    initialiseComparison();
-
-    initialiseLazyLoading();
-
-    initialiseKeyboardSupport();
-
-    initialiseSwipeGallery();
-
-});
-
-/*=========================================================
-LIGHTBOX GALLERY
-=========================================================*/
-
-function initialiseLightbox(){
-
-    if(!lightbox) return;
-
-    galleryImages.forEach(image=>{
-
-        image.addEventListener("click",()=>{
-
-            lightbox.classList.add("active");
-
-            lightboxImage.src = image.src;
-
-            lightboxImage.alt = image.alt;
-
-            document.body.style.overflow="hidden";
-
-        });
-
-    });
-
-    lightboxClose.addEventListener("click",closeLightbox);
-
-    lightbox.addEventListener("click",(event)=>{
-
-        if(event.target===lightbox){
-
-            closeLightbox();
-
-        }
-
-    });
-
-}
-
-function closeLightbox(){
-
-    lightbox.classList.remove("active");
-
-    document.body.style.overflow="";
-
-}
-
-/*=========================================================
-RECIPE FILTER
-=========================================================*/
-
-function initialiseRecipeFilter(){
-
-    recipeButtons.forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-            const category =
-
-            button.dataset.filter;
-
-            recipeButtons.forEach(btn=>{
-
-                btn.classList.remove("active");
-
-            });
-
-            button.classList.add("active");
-
-            recipeCards.forEach(card=>{
-
-                if(
-
-                    category==="all" ||
-
-                    card.dataset.category===category
-
-                ){
-
-                    card.style.display="block";
-
-                }
-
-                else{
-
-                    card.style.display="none";
-
-                }
-
-            });
-
-        });
-
-    });
-
-}
-
-/*=========================================================
-COMPARISON TABLE
-=========================================================*/
-
-function initialiseComparison(){
-
-    comparisonRows.forEach(row=>{
-
-        row.addEventListener("mouseenter",()=>{
-
-            row.style.background="#252525";
-
-        });
-
-        row.addEventListener("mouseleave",()=>{
-
-            row.style.background="";
-
-        });
-
-    });
-
-}
-
-/*=========================================================
-LAZY IMAGE LOADING
-=========================================================*/
-
-function initialiseLazyLoading(){
-
-    if(!("IntersectionObserver" in window)) return;
-
-    const lazyImages =
-
-    document.querySelectorAll("img[data-src]");
-
-    const observer =
-
-    new IntersectionObserver(entries=>{
-
-        entries.forEach(entry=>{
-
-            if(entry.isIntersecting){
-
-                const image = entry.target;
-
-                image.src = image.dataset.src;
-
-                image.removeAttribute("data-src");
-
-                observer.unobserve(image);
-
-            }
-
-        });
-
-    });
-
-    lazyImages.forEach(image=>{
-
-        observer.observe(image);
-
-    });
-
-}
-
-/*=========================================================
-KEYBOARD ACCESSIBILITY
-=========================================================*/
-
-function initialiseKeyboardSupport(){
-
-    document.addEventListener("keydown",(event)=>{
-
-        if(event.key==="Escape"){
-
-            closeLightbox();
-
-        }
-
-    });
-
-}
-
-/*=========================================================
-SWIPE GALLERY
-=========================================================*/
-
-function initialiseSwipeGallery(){
-
-    const galleries =
-
-    document.querySelectorAll(".main-image");
-
-    galleries.forEach(gallery=>{
-
-        let startX = 0;
-
-        gallery.addEventListener(
-
-            "touchstart",
-
-            event=>{
-
-                startX =
-
-                event.touches[0].clientX;
-
-            }
-
-        );
-
-        gallery.addEventListener(
-
-            "touchend",
-
-            event=>{
-
-                const endX =
-
-                event.changedTouches[0].clientX;
-
-                const distance =
-
-                startX - endX;
-
-                if(Math.abs(distance) < 60) return;
-
-                const thumbs =
-
-                gallery.parentElement.querySelectorAll(
-
-                ".thumbnail-gallery img"
-
-                );
-
-                if(!thumbs.length) return;
-
-                let current =
-
-                gallery.querySelector("img").src;
-
-                let index = [...thumbs].findIndex(
-
-                thumb=>thumb.src===current
-
-                );
-
-                if(distance>0){
-
-                    index++;
-
-                }
-
-                else{
-
-                    index--;
-
-                }
-
-                if(index<0){
-
-                    index = thumbs.length-1;
-
-                }
-
-                if(index>=thumbs.length){
-
-                    index = 0;
-
-                }
-
-                gallery.querySelector("img").src =
-
-                thumbs[index].src;
-
-            }
-
-        );
-
-    });
-
-}
-
-/*=========================================================
-PERFORMANCE
-=========================================================*/
-
-function throttle(callback,delay){
-
-    let waiting=false;
-
-    return function(){
-
-        if(waiting) return;
-
-        callback.apply(this,arguments);
-
-        waiting=true;
-
-        setTimeout(()=>{
-
-            waiting=false;
-
-        },delay);
-
-    };
-
-}
-
-window.addEventListener(
-
-"scroll",
-
-throttle(()=>{
-
-    // Reserved for future animations
-
-},20)
-
-);
-
-/*=========================================================
-END OF PART 3
-=========================================================*/
-
-
-/*
-=========================================================
-PIQUANT CHILLI SAUCE
-SAUCES.JS
-PART 4
-
-Contains
-
-✓ Page Loader
-✓ Mobile Navigation
-✓ Hero Parallax
-✓ Reduced Motion Support
-✓ Resize Optimisation
-✓ Error Handling
-✓ Utility Functions
-✓ Application Bootstrap
-
-=========================================================
-*/
-
-"use strict";
-
-/*=========================================================
-DOM ELEMENTS
-=========================================================*/
-
-const body = document.body;
-
-const loader = document.querySelector(".page-loader");
-
-const mobileToggle = document.querySelector(".menu-toggle");
-
-const navigation = document.querySelector(".navigation");
-
-const hero = d
