@@ -5,7 +5,7 @@
     --accent-lime: #93f542;
     --accent-gold: #f6c342;
     --accent-orange: #f59e42;
-    --accent-red: #d7263d;
+    --accent-red: #a00000;
 
     --white: #fff;
     --black: #000;
@@ -13,6 +13,19 @@
 
     --radius: 18px;
     --shadow: 0 15px 35px rgba(0,0,0,.25);
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-xl: 30px;
+
+    --container-width: 1200px;
+
+    --transition-fast: 180ms ease;
+    --transition: 300ms ease;
+    --transition-slow: 500ms ease;
+
+    --header-height: 76px;
 }
 
 * {
@@ -34,8 +47,8 @@ body {
 }
 
 img {
-    max-width: 100%;
     display: block;
+    max-width: 100%;
 }
 
 a {
@@ -47,9 +60,12 @@ ul {
 }
 
 .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px;
+    width: min(
+        calc(100% - 32px),
+        var(--container-width)
+    );
+
+    margin-inline: auto;
 }
 
 .nav {
@@ -71,13 +87,25 @@ ul {
     position: sticky;
     top: 0;
     left: 0;
-    width: 100%;
-    padding: 1rem 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    color: var(--white);
-    background: linear-gradient(135deg, var(--accent-light-green), var(--accent-green));
-    backdrop-filter: blur(10px);
     z-index: 1000;
+
+    width: 100%;
+
+    padding: 1rem 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 52, 8, 0.98),
+            rgba(0, 0, 0, 0.96)
+        );
+
+    border-bottom: 1px solid rgba(246, 195, 66, 0.16);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.22);
+
+    backdrop-filter: blur(10px);
     transition: padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -188,92 +216,6 @@ ul {
     font-size: 0.85rem;
 }
 
-/* Footer */
-.footer {
-    padding: 2rem 0 1.25rem;
-    width: 100%;
-    color: var(--white);
-    background: linear-gradient(135deg, var(--accent-light-green), var(--accent-green));
-    box-shadow: var(--shadow);
-    position: relative;
-    z-index: 900;
-}
-
-.footer-social {
-    text-align: center;
-    margin-bottom: 1.75rem;
-}
-
-.footer-social h3 {
-    color: #f6c342;
-    margin-bottom: 1rem;
-    font-size: 1.6rem;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    align-items: start;
-}
-
-.footer-section h4 {
-    color: var(--accent-gold);
-    margin-bottom: 0.75rem;
-}
-
-.footer-section p,
-.footer-section a {
-    color: var(--white);
-    line-height: 1.7;
-}
-
-.footer-section a:hover {
-    color: var(--accent-gold);
-}
-
-.footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem 1.2rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links a {
-    font-weight: 600;
-}
-
-.social-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.social {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.9rem 1.4rem;
-    border-radius: 40px;
-    color: #fff;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.facebook { background: #1877F2; }
-.instagram { background: linear-gradient(45deg, #833AB4, #E1306C, #FCAF45); }
-.tiktok { background: #000; border: 1px solid #ffffff30; }
-.email { background: #0d5f20; }
-
-.social:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,.35);
-}
-
 /*Info Bar*/
 .info-bar {
     background: var(--primary-green);
@@ -295,11 +237,13 @@ ul {
     min-height: 80vh;
     text-align: center;
     color: white;
-    background: url("Images/wood-background.png");
+    background: url("Images/Backgorund/wood-background.png");
     background-size: cover;
 }
 
 .profile-logo {
+    margin-left: auto;
+    margin-right: auto;
     width: 300px;
     height: 300px;
     border-radius: 50%;
@@ -339,7 +283,7 @@ ul {
 .cta-section {
     padding: 3rem 0;
     text-align: center;
-    background: white;
+    background: linear-gradient(to bottom, #000, #003408);
 }
 
 .cta-group {
@@ -363,14 +307,17 @@ ul {
 }
 
 .cta-secondary {
-    background: var(--primary-green);
+    background: var(--accent-green);
     color: white;
 }
 
 /* Gallery */
 .gallery-section {
     padding: 5rem 1rem;
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("Images/wood-background.png");
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.35), 
+        rgba(0, 0, 0, 0.35)), 
+        url("Images/Backgorund/wood-background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -474,7 +421,7 @@ ul {
 /* News */
 .news-div {
     padding: 5rem 0;
-    background: url("Images/Chillie-Background.png");
+    background: url("Images/Backgorund/Chilli-Background.png");
     background-size: cover;
 }
 
@@ -861,6 +808,228 @@ ul {
     color: #9acd32;
 }
 
+/* =========================================================
+                    20. CONTACT
+========================================================= */
+
+.contact-section,
+.cta-section {
+    padding: 90px 0;
+}
+
+.contact-section {
+    background: var(--charcoal);
+    color: var(--white);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(1, minmax(0, 1fr));
+    gap: 40px;
+}
+
+.contact-column h2 {
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.contact-column p {
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+.contact-column a {
+    display: block;
+    width: fit-content;
+    margin-bottom: 10px;
+    color: var(--accent-gold);
+    font-weight: 700;
+    transition:
+        color var(--transition-fast);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.4rem;
+    border-radius: 40px;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.facebook { background: #1877F2; }
+.instagram { background: linear-gradient(45deg, #833AB4, #E1306C, #FCAF45); }
+.tiktok { background: #000; border: 1px solid #ffffff30; }
+.email { background: #0d5f20; }
+
+.social:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+}
+
+.contact-column a:hover {
+    color: var(--white);
+}
+
+
+/* =========================================================
+                    21. FINAL CTA
+========================================================= */
+
+.cta-section h2 {
+    margin-bottom: 18px;
+    color: var(--white);
+}
+
+.cta-section p {
+    margin: 0 auto 28px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* =========================================================
+                    22. FOOTER
+========================================================= */
+.footer-content {
+    padding: 65px 0 0;
+    background:
+        linear-gradient(
+            180deg,
+            #002f03,
+            #001702
+        );
+
+    border-top: 1px solid rgba(246, 195, 66, 0.18);
+
+    padding: 65px 0 0;
+}
+
+
+.footer-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(1, minmax(0, 1fr));
+
+    gap: 40px;
+
+    padding-bottom: 45px;
+}
+
+
+.footer-brand img {
+    width: 145px;
+    height: auto;
+
+    margin-bottom: 18px;
+}
+
+
+.footer-brand p {
+    max-width: 360px;
+
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-logo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease;
+}
+
+
+.footer-content h3 {
+    margin-bottom: 18px;
+
+    color: var(--accent-gold);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 1rem;
+}
+
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 8px;
+}
+
+
+.footer-links a,
+.footer-about a {
+    color: rgba(255, 255, 255, 0.72);
+
+    transition:
+        color var(--transition-fast);
+}
+
+
+.footer-links a:hover,
+.footer-about a:hover {
+    color: var(--accent-gold);
+}
+
+
+.footer-hours p,
+.footer-about p {
+    color: rgba(255, 255, 255, 0.65);
+
+    margin-bottom: 10px;
+}
+
+
+.footer-about a {
+    display: inline-block;
+
+    margin-top: 6px;
+
+    color: var(--accent-gold);
+
+    font-weight: 700;
+}
+
+
+.footer-bottom {
+    padding: 22px 0;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.10);
+
+    text-align: center;
+}
+
+
+.footer-bottom p {
+    margin-inline: auto;
+
+    color: rgba(255, 255, 255, 0.48);
+
+    font-size: 0.82rem;
+}
+
 /*============================== WHATSAPP FLOAT BUTTON ===============================*/
 .whatsapp-float {
     position: fixed;
@@ -908,7 +1077,7 @@ ul {
 }
 
 /* ================================
-   RESPONSIVE
+            RESPONSIVE
 ================================ */
 @media (max-width: 900px) {
     .gallery-collage {
@@ -925,6 +1094,11 @@ ul {
 
     .nav {
         flex-direction: row;
+    }
+
+    .contact-section,
+    .cta-section {
+        padding: 110px 0;
     }
 }
 
@@ -1041,10 +1215,6 @@ ul {
         font-size: 1.7rem;
     }
 
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-
     .footer-social {
         margin-bottom: 1.5rem;
     }
@@ -1084,5 +1254,106 @@ ul {
     .cta-secondary {
         width: 100%;
         text-align: center;
+    }
+}
+
+/* =========================================================
+   26. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================================================
+   27. TABLET
+   ========================================================= */
+
+@media (min-width: 600px) {
+
+    .container {
+        width: min(
+            calc(100% - 48px),
+            var(--container-width)
+        );
+    }
+
+    .contact-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+    .footer-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   28. DESKTOP
+   ========================================================= */
+
+@media (min-width: 900px) {
+
+    :root {
+        --header-height: 84px;
+    }
+
+
+    .container {
+        width: min(
+            calc(100% - 64px),
+            var(--container-width)
+        );
+    }
+
+
+    .footer-grid {
+        grid-template-columns:
+            1.3fr
+            0.8fr
+            0.8fr
+            1fr;
+    }
+}
+
+
+/* =========================================================
+   29. LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+    .contact-section,
+    .cta-section {
+        padding: 110px 0;
+    }
+}
+
+
+/* =========================================================
+   30. VERY SMALL MOBILE DEVICES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .container {
+        width: min(
+            calc(100% - 24px),
+            var(--container-width)
+        );
     }
 }

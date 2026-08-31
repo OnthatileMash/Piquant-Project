@@ -4,36 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Piquant Chilli Sauce offers handcrafted premium chilli sauces made in South Africa. Explore Pineapple Habanero, BBQ Sticky Wings, Spring Cayenne and Hot Honey Range.">
+    <meta name="author" content="Piquant Chilli Sauce">
+    <meta name="theme-color" content="#7b1113">
     <title>Piquant Chilli Sauce | Crafted Heat, Curated Taste</title>
-    <link rel="icon" href="Images/Fav Logo.jpg" type="image/jpeg">
+    <link rel="icon" href="Images/Logo/Fav Logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="Sauces.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-
     <header class="header" id="main-header">
         <div class="container">
-            <nav class="nav" aria-label="Primary">
+            <nav class="nav" aria-label="Primary navigation">
                 <div class="logo-container">
                     <a href="index.html" class="logo-link" aria-label="Piquant Chilli Sauce home">
-                        <img src="Images/Logo.png" alt="Piquant Chilli Sauce Logo" class="site-logo">
+                        <img src="Images/Logo/OriginalPic.jpg" alt="Piquant Chilli Sauce Logo" class="logo-image">
                     </a>
-                    <span class="site-wordmark">Piquant Chilli Sauce</span>
+                    <span class="logo">Piquant Chilli Sauce</span>
                 </div>
 
-                <button id="header-toggle" class="header-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu">
-                    ☰
-                </button>
-
-                <ul class="nav-menu" id="primary-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="Sauces.html" class="active">Sauces</a></li>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="Sauces.html">Sauces</a></li>
                     <li><a href="Catering.html">Catering</a></li>
                     <li><a href="Merch.html">Merch</a></li>
                     <li><a href="About.html">About</a></li>
                 </ul>
 
                 <a href="Cart.html" class="cta-button">Cart</a>
+
+                <button id="header-toggle" class="header-toggle" aria-label="Menu" aria-expanded="false">☰</button>
             </nav>
         </div>
     </header>
@@ -41,8 +43,8 @@
     <main>
         <section class="sauce-profile" id="top">
             <div class="profile-overlay">
-                <div class="container hero-grid">
-                    <div class="hero-copy reveal">
+                <div class="container">
+                    <div class="profile-copy reveal">
                         <span class="profile-tag">PREMIUM SOUTH AFRICAN CHILLI SAUCES</span>
                         <h1>Explore Our Signature Collection</h1>
                         <p>
@@ -54,45 +56,19 @@
                         </div>
                     </div>
 
-                    <div class="hero-visual reveal">
-                        <img src="Images/Aesthetic7.jpg" alt="Piquant chilli sauces arranged for a premium brand presentation" class="hero-image">
-                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="quick-nav section-block" id="products">
+        <section class="cta-section">
             <div class="container">
-                <div class="section-heading reveal">
-                    <span>OUR COLLECTION</span>
-                    <h2>Choose Your Favourite</h2>
-                    <p>Four distinctive flavours crafted for every meal and every occasion.</p>
-                </div>
+                <h2>Discover South Africa's Favourite Flavours</h2>
+                <p>Crafted by Master Chef Vusi and the Piquant team.</p>
 
-                <div class="quick-nav-grid">
-                    <a href="#bbq" class="quick-card reveal">
-                        <img src="Images/BBQ-Sticky-Wings.png" alt="BBQ Sticky Wings">
-                        <h3>BBQ Sticky Wings</h3>
-                        <p>Sweet • Smoky • Sticky</p>
-                    </a>
-
-                    <a href="#pineapple" class="quick-card reveal">
-                        <img src="Images/Pineapple-Habanero.png" alt="Pineapple Habanero">
-                        <h3>Pineapple Habanero</h3>
-                        <p>Sweet • Fruity • Zesty</p>
-                    </a>
-
-                    <a href="#spring" class="quick-card reveal">
-                        <img src="Images/Spring-Cayenne.png" alt="Spring Cayenne">
-                        <h3>Spring Cayenne</h3>
-                        <p>Fresh • Bright • Zesty</p>
-                    </a>
-
-                    <a href="#hothoney" class="quick-card reveal">
-                        <img src="Images/Hot-Honey-Range.png" alt="Hot Honey Range">
-                        <h3>Hot Honey Range</h3>
-                        <p>Sweet • Smooth • Spicy</p>
-                    </a>
+                <div class="cta-group">
+                    <a href="#Cart.html" class="cta-main">Shop Now</a>
+                    <a href="https://wa.me/+27693237625" class="cta-secondary" target="_blank" rel="noopener">Order Today</a>
+                    <a href="Sauces.html" class="cta-secondary">View Range</a>
                 </div>
             </div>
         </section>
@@ -102,13 +78,13 @@
                 <div class="section-heading reveal">
                     <span>BEST SELLERS</span>
                     <h2>Premium Sauce Selection</h2>
-                    <p>Built for braais, burgers, wings, wraps and the little plate-level epiphanies in between.</p>
+                    <p>Built for Braais, Burgers, Wings, Wraps and The Little Plate-Level Epiphanies in Between.</p>
                 </div>
 
                 <div class="product-grid">
                     <article class="product-card reveal">
                         <div class="product-image">
-                            <img src="Images/BBQ-Sticky-Wings.png" alt="BBQ Sticky Wings bottle">
+                            <img src="Images/Piquant-Sauces/BBQ-Sticky-Wings.png" alt="BBQ Sticky Wings bottle">
                         </div>
                         <div class="product-content">
                             <h3>BBQ Sticky Wings</h3>
@@ -124,7 +100,7 @@
 
                     <article class="product-card reveal">
                         <div class="product-image">
-                            <img src="Images/Pineapple-Habanero.png" alt="Pineapple Habanero bottle">
+                            <img src="Images/Piquant-Sauces/Pineapple-Habanero.png" alt="Pineapple Habanero bottle">
                         </div>
                         <div class="product-content">
                             <h3>Pineapple Habanero</h3>
@@ -132,7 +108,7 @@
                             <p>Pineapple sweetness balanced with vibrant habanero heat.</p>
                             <div class="card-footer">
                                 <span>125ml</span>
-                                <strong>R50.00</strong>
+                                <strong>R35.00</strong>
                             </div>
                             <a href="#pineapple" class="product-button">View Details</a>
                         </div>
@@ -140,7 +116,7 @@
 
                     <article class="product-card reveal">
                         <div class="product-image">
-                            <img src="Images/Spring-Cayenne.png" alt="Spring Cayenne bottle">
+                            <img src="Images/Piquant-Sauces/Spring-Cayenne.png" alt="Spring Cayenne bottle">
                         </div>
                         <div class="product-content">
                             <h3>Spring Cayenne</h3>
@@ -156,7 +132,7 @@
 
                     <article class="product-card reveal">
                         <div class="product-image">
-                            <img src="Images/Hot-Honey-Range.png" alt="Hot Honey Range bottle">
+                            <img src="Images/Piquant-Sauces/Hot-Honey-Range-Main.png" alt="Hot Honey Range bottle">
                         </div>
                         <div class="product-content">
                             <h3>Hot Honey Range</h3>
@@ -178,17 +154,14 @@
                 <div class="sauce-layout">
                     <div class="sauce-gallery reveal">
                         <div class="main-image">
-                            <img src="Images/BBQ-Sticky-Wings.png" alt="BBQ Sticky Wings bottle preview">
+                            <img src="Images/Piquant-Sauces/BBQ-Sticky-Wings.png" alt="BBQ Sticky Wings bottle preview">
                         </div>
                         <div class="thumbnail-gallery" data-gallery>
                             <button class="thumb-button" type="button" data-src="Images/BBQ-Sticky-Wings.png" data-alt="BBQ Sticky Wings bottle front">
-                                <img src="Images/BBQ-Sticky-Wings.png" alt="">
+                                <img src="Images/Piquant-Sauces/BBQ-Sticky-Wings.png" alt="">
                             </button>
                             <button class="thumb-button" type="button" data-src="Images/BBQ-Sticky-Wings-Label.jpg" data-alt="BBQ Sticky Wings label">
-                                <img src="Images/BBQ-Sticky-Wings-Label.jpg" alt="">
-                            </button>
-                            <button class="thumb-button" type="button" data-src="Images/bbq-food.jpg" data-alt="BBQ Sticky Wings serving suggestion">
-                                <img src="Images/bbq-food.jpg" alt="">
+                                <img src="Images/Piquant-Sauces/BBQ-Sticky-Wings-Label.jpg" alt="">
                             </button>
                         </div>
                     </div>
@@ -227,54 +200,19 @@
             </div>
         </section>
 
-        <section class="nutrition-section section-block">
-            <div class="container">
-                <div class="section-heading reveal">
-                    <span>NUTRITION</span>
-                    <h2>Nutritional Information</h2>
-                    <p>Average nutritional values are shown on the label and bottle packaging.</p>
-                </div>
-
-                <div class="nutrition-card reveal">
-                    <p class="nutrition-note">For the latest label values, please refer to the bottle packaging.</p>
-                    <table class="nutrition-table">
-                        <thead>
-                            <tr>
-                                <th>Nutrient</th>
-                                <th>Per 100 ml</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Energy</td><td>Refer to label</td></tr>
-                            <tr><td>Protein</td><td>Refer to label</td></tr>
-                            <tr><td>Carbohydrates</td><td>Refer to label</td></tr>
-                            <tr><td>of which Sugars</td><td>Refer to label</td></tr>
-                            <tr><td>Total Fat</td><td>Refer to label</td></tr>
-                            <tr><td>Saturated Fat</td><td>Refer to label</td></tr>
-                            <tr><td>Dietary Fibre</td><td>Refer to label</td></tr>
-                            <tr><td>Sodium</td><td>Refer to label</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
         <section id="pineapple" class="sauce-showcase section-block">
             <div class="container">
                 <div class="sauce-layout">
                     <div class="sauce-gallery reveal">
                         <div class="main-image">
-                            <img src="Images/Pineapple-Habanero.png" alt="Pineapple Habanero bottle preview">
+                            <img src="Images/Piquant-Sauces/Pineapple-Habanero.png" alt="Pineapple Habanero bottle preview">
                         </div>
                         <div class="thumbnail-gallery" data-gallery>
                             <button class="thumb-button" type="button" data-src="Images/Pineapple-Habanero.png" data-alt="Pineapple Habanero bottle front">
-                                <img src="Images/Pineapple-Habanero.png" alt="">
+                                <img src="Images/Piquant-Sauces/Pineapple-Habanero.png" alt="">
                             </button>
                             <button class="thumb-button" type="button" data-src="Images/Pineapple-Habanero-Label.png" data-alt="Pineapple Habanero label">
-                                <img src="Images/Pineapple-Habanero-Label.png" alt="">
-                            </button>
-                            <button class="thumb-button" type="button" data-src="Images/Pineapple-Habanero-Food.png" data-alt="Pineapple Habanero serving suggestion">
-                                <img src="Images/Pineapple-Habanero-Food.png" alt="">
+                                <img src="Images/Piquant-Sauces/Pineapple-Habanero-Label.jpg" alt="">
                             </button>
                         </div>
                     </div>
@@ -318,17 +256,14 @@
                 <div class="sauce-layout">
                     <div class="sauce-gallery reveal">
                         <div class="main-image">
-                            <img src="Images/Spring-Cayenne.png" alt="Spring Cayenne bottle preview">
+                            <img src="Images/Piquant-Sauces/Spring-Cayenne.png" alt="Spring Cayenne bottle preview">
                         </div>
                         <div class="thumbnail-gallery" data-gallery>
                             <button class="thumb-button" type="button" data-src="Images/Spring-Cayenne.png" data-alt="Spring Cayenne bottle front">
-                                <img src="Images/Spring-Cayenne.png" alt="">
+                                <img src="Images/Piquant-Sauces/Spring-Cayenne.png" alt="">
                             </button>
                             <button class="thumb-button" type="button" data-src="Images/Spring-Cayenne-Label.jpg" data-alt="Spring Cayenne label">
-                                <img src="Images/Spring-Cayenne-Label.jpg" alt="">
-                            </button>
-                            <button class="thumb-button" type="button" data-src="Images/spring-cayenne-food.jpg" data-alt="Spring Cayenne serving suggestion">
-                                <img src="Images/spring-cayenne-food.jpg" alt="">
+                                <img src="Images/Piquant-Sauces/Spring-Cayenne-Label.jpg" alt="">
                             </button>
                         </div>
                     </div>
@@ -372,17 +307,14 @@
                 <div class="sauce-layout">
                     <div class="sauce-gallery reveal">
                         <div class="main-image">
-                            <img src="Images/Hot-Honey-Range.png" alt="Hot Honey Range bottle preview">
+                            <img src="Images/Piquant-Sauces/Hot-Honey-Range-Main.png" alt="Hot Honey Range bottle preview">
                         </div>
                         <div class="thumbnail-gallery" data-gallery>
                             <button class="thumb-button" type="button" data-src="Images/Hot-Honey-Range.png" data-alt="Hot Honey Range bottle front">
-                                <img src="Images/Hot-Honey-Range.png" alt="">
+                                <img src="Images/Piquant-Sauces/Hot-Honey-Range-Main.png" alt="">
                             </button>
                             <button class="thumb-button" type="button" data-src="Images/Hot-Honey-Range-Label.jpg" data-alt="Hot Honey Range label">
-                                <img src="Images/Hot-Honey-Range-Label.jpg" alt="">
-                            </button>
-                            <button class="thumb-button" type="button" data-src="Images/hot-honey-food.jpg" data-alt="Hot Honey Range serving suggestion">
-                                <img src="Images/hot-honey-food.jpg" alt="">
+                                <img src="Images/Piquant-Sauces/Hot-Honey-Range-Label.jpg" alt="">
                             </button>
                         </div>
                     </div>
@@ -421,7 +353,7 @@
             </div>
         </section>
 
-        <section class="comparison-section section-block" id="comparison">
+        <section class="comparison-section section-block alt" id="comparison">
             <div class="container">
                 <div class="section-heading reveal">
                     <span>COMPARE</span>
@@ -493,50 +425,109 @@
         </section>
     </main>
 
-    <footer class="footer" id="main-footer">
-        <div class="container footer-grid">
-            <div class="footer-section">
-                <h4>About Piquant</h4>
-                <p>Premium chilli sauces crafted to bring flavour and heat to every meal.</p>
-                <p><a href="about.html">Read more about our story</a></p>
-            </div>
+     <!-- =================================================
+                                CONTACT
+    ================================================= -->
+            <section id="contact" class="contact-section">
+                <div class="container">
+                    <div class="contact-grid">
+                        <div class="contact-column">
 
-            <div class="footer-section">
-                <h4>Contact Us</h4>
-                <p><a href="tel:+27693237625">069 323 7625</a></p>
-                <p><a href="tel:+27769835068">076 983 5068</a></p>
-                <p><a href="mailto:piquantchillisauce@outlook.com">piquantchillisauce@outlook.com</a></p>
-                <p>317 Phase 1, Mathibela Village, Zebediela, Limpopo</p>
-            </div>
+                            <h2>Contact Us</h2>
 
-            <div class="footer-section">
-                <h4>Follow Us</h4>
-                <ul class="footer-links">
-                    <li><a href="https://www.facebook.com/share/1C5iiBQ79c/" target="_blank" rel="noopener">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/piquantchillisauce?igsh=ZWZhbjJvd3lkaHZv" target="_blank" rel="noopener">Instagram</a></li>
-                    <li><a href="https://www.tiktok.com/@piquant62" target="_blank" rel="noopener">TikTok</a></li>
-                </ul>
-            </div>
+                            <p>📍 Limpopo, South Africa</p>
 
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="Sauces.html">Sauces</a></li>
-                    <li><a href="Catering.html">Catering</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="Contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+                            <!-- Keep confirmed contact information from the main Piquant website here. -->
+                            <p>📞 Contact number available via the Piquant business channels.</p>
 
-    <a class="whatsapp-float" href="https://wa.me/27693237625?text=Hello%20Piquant%20Chilli%20Sauce,%20I%20would%20like%20to%20know%20more%20about%20your%20products." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-        WhatsApp
+                            <p>✉ Contact us through our official communication channels.</p>
+                        </div>
+
+                        <div class="contact-column">
+                            <h2>Follow Piquant</h2>
+
+                            <!-- Social URLs should match the confirmed links already used on index.html. -->
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/share/1C5iiBQ79c/" target="_blank" rel="noopener" class="social facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
+                                <a href="https://www.instagram.com/piquantchillisauce?igsh=ZWZhbjJvd3lkaHZv" target="_blank" rel="noopener" class="social instagram"><i class="fab fa-instagram"></i>Instagram</a>
+                                <a href="https://www.tiktok.com/@piquant62" target="_blank" rel="noopener" class="social tiktok"><i class="fab fa-tiktok"></i>TikTok</a>
+                                <a href="mailto:piquantchillisauce@outlook.com" class="social email"><i class="fas fa-envelope"></i>Email</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- =================================================
+                            FINAL CTA
+            ================================================= -->
+
+            <section class="cta-section">
+                <div class="container">
+                    <h2>Ready To Spice Up Your Next Meal?</h2>
+
+                    <p>Let's create an flavourable together.</p>
+
+                    <a href="#Cart.html" class="cta-main">Shop Now</a>
+                    <a href="https://wa.me/+27693237625" class="cta-secondary" target="_blank" rel="noopener">Order Today</a>
+                    <a href="Sauces.html" class="cta-secondary">View Range</a>
+                </div>
+            </section>
+
+        <!-- =====================================================
+                            FOOTER
+        ===================================================== -->
+        <footer class="footer-content">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" aria-label="Piquant Chilli Sauce Home">
+                            <img src="Images/Logo/OriginalPic.jpg" alt="Piquant Chilli Sauce" loading="lazy" class="footer-logo">
+                        </a>
+
+                        <p>Crafting bold South African flavour through artisan sauces and premium catering experiences.</p>
+                    </div>
+
+                    <div class="footer-links">
+                        <h3>Quick Links</h3>
+                        <a href="index.html">Home</a>
+                        <a href="Sauces.html" class="active" aria-current="page">Sauces</a>
+                        <a href="Catering.html">Catering</a>
+                        <a href="Merch.html">Merch</a>
+                        <a href="About.html">About</a>
+                        <a href="#booking">Book Now</a>
+                    </div>
+
+                    <div class="footer-hours">
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday<br>08:00 - 17:00</p>
+                        <p>Saturday<br>09:00 - 14:00</p>
+                    </div>
+
+                    <div class="footer-about">
+                        <h3>About Catering</h3>
+                        <p>Premium catering experiences built around bold flavour, warm hospitality and Piquant's handcrafted sauces.</p>
+                        <a href="About.html">Learn More About Piquant</a>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy;<span class="current-year"></span>Piquant Chilli Sauce. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+    <a href="https://wa.me/+27693237625?text=Hello%20Piquant%20Chilli%20Sauce,%20I%20would%20like%20to%20know%20more%20about%20your%20products."
+       class="whatsapp-float"
+       target="_blank"
+       rel="noopener"
+       aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">↑</button>
 
-    <script src="Sauces.js" defer></script>
+    <script src="Sauces.js" defer> </script>
 </body>
 </html>
