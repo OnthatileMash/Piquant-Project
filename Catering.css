@@ -1,14 +1,20 @@
 /* =========================================================
-   PIQUANT CHILLI SAUCE
-   CATERING PAGE STYLESHEET
-   ========================================================= */
-
-
-/* =========================================================
    1. ROOT VARIABLES
    ========================================================= */
 
 :root {
+    --primary-green: #003408;
+    --accent-green: #002f03;
+    --accent-light-green: #02ff3de1;
+    --accent-lime: #93f542;
+    --accent-gold: #f6c342;
+    --accent-orange: #f59e42;
+    --accent-red: #a00000;
+
+    --white: #fff;
+    --black: #000;
+    --text-dark: #222b45;
+
     --primary-red: #7b1113;
     --deep-red: #4d0809;
     --chilli-red: #a7191d;
@@ -53,84 +59,196 @@
     --header-height: 76px;
 }
 
-
-/* =========================================================
-   2. RESET
-   ========================================================= */
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
 }
-
 
 body {
-    min-height: 100vh;
-
-    background:
-        linear-gradient(
-            180deg,
-            var(--warm-white) 0%,
-            var(--cream) 100%
-        );
-
+    font-family: Inter, sans-serif;
+    line-height: 1.6;
     color: var(--text-dark);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    font-size: 16px;
-    line-height: 1.65;
-
-    overflow-x: hidden;
+    padding-bottom: 0;
+    background: #101010;
 }
-
 
 img {
     display: block;
     max-width: 100%;
 }
 
-
-button,
-input,
-select,
-textarea {
-    font: inherit;
-}
-
-
-button {
-    cursor: pointer;
-}
-
-
 a {
-    color: inherit;
     text-decoration: none;
 }
-
 
 ul {
     list-style: none;
 }
 
+.container {
+    width: min(
+        calc(100% - 32px),
+        var(--container-width)
+    );
 
-::selection {
-    background: var(--accent-gold);
-    color: var(--charcoal);
+    margin-inline: auto;
 }
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+
+/* =================================== SECTION DIVIDER SECTION =================================== */
+.section-divider {
+    height: 90px;
+    background: linear-gradient(to bottom, #000, #003408);
+}
+
+/*================================ HEADER ================================*/
+.header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    width: 100%;
+
+    padding: 1rem 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(122, 0, 0, 0.349),
+            rgba(250, 100, 14, 0.466)
+        );
+
+    border-bottom: 1px solid rgba(246, 195, 66, 0.16);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.22);
+
+    backdrop-filter: blur(10px);
+    transition: padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header .container {
+    overflow: visible;
+}
+
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-width: 0;
+}
+
+.logo-link {
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.logo-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--accent-gold), var(--accent-red), var(--accent-orange), var(--accent-lime));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    transition: font-size 0.3s ease;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-menu a {
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--accent-gold);
+}
+
+.cta-button {
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    color: var(--primary-green);
+    background: linear-gradient(45deg, var(--accent-gold), var(--accent-red), var(--accent-orange));
+    white-space: nowrap;
+    transition: transform 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+}
+
+.header-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Header minimised state */
+.header.minimized {
+    padding: 0.35rem 0;
+    background: rgba(0, 47, 3, 0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.header.minimized .logo-image {
+    width: 34px;
+    height: 34px;
+}
+
+.header.minimized .logo {
+    font-size: 1.25rem;
+}
+
+.header.minimized .nav-menu {
+    gap: 1rem;
+}
+
+.header.minimized .nav-menu a {
+    font-size: 0.9rem;
+}
+
+.header.minimized .cta-button {
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
+}
+
 
 
 /* =========================================================
@@ -163,21 +281,6 @@ ul {
 .skip-link:focus {
     transform: translateY(0);
 }
-
-
-/* =========================================================
-   4. CONTAINER
-   ========================================================= */
-
-.container {
-    width: min(
-        calc(100% - 32px),
-        var(--container-width)
-    );
-
-    margin-inline: auto;
-}
-
 
 /* =========================================================
    5. TYPOGRAPHY
@@ -283,11 +386,9 @@ p {
         border-color var(--transition-fast);
 }
 
-
 .btn:hover {
     transform: translateY(-2px);
 }
-
 
 .btn-primary {
     background:
@@ -303,12 +404,10 @@ p {
         0 8px 20px rgba(123, 17, 19, 0.22);
 }
 
-
 .btn-primary:hover {
     box-shadow:
         0 12px 28px rgba(123, 17, 19, 0.32);
 }
-
 
 .btn-secondary {
     background: var(--accent-gold);
@@ -323,12 +422,9 @@ p {
 
 .btn-outline {
     border-color: var(--primary-red);
-
     background: transparent;
-
     color: var(--primary-red);
 }
-
 
 .btn-outline:hover {
     background: var(--primary-red);
@@ -336,248 +432,30 @@ p {
 }
 
 
-/* =========================================================
-   7. HEADER
-   ========================================================= */
-
-.header {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    z-index: 1000;
-
-    width: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(77, 8, 9, 0.98),
-            rgba(123, 17, 19, 0.98)
-        );
-
-    color: var(--white);
-
-    border-bottom:
-        1px solid rgba(255, 255, 255, 0.10);
-
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.18);
-
-    transition:
-        height var(--transition),
-        background var(--transition),
-        box-shadow var(--transition);
-}
-
-
-.header-container {
-    min-height: var(--header-height);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
-}
-
-
-.logo {
-    display: inline-flex;
-    align-items: center;
-
-    flex-shrink: 0;
-}
-
-
-.logo img {
-    width: 130px;
-    height: auto;
-
-    transition:
-        width var(--transition),
-        transform var(--transition);
-}
-
-
-.navigation {
-    display: none;
-}
-
-
-.navigation ul {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-}
-
-
-.navigation a {
-    position: relative;
-
-    color: var(--white);
-
-    font-size: 0.92rem;
-    font-weight: 700;
-
-    transition: color var(--transition-fast);
-}
-
-
-.navigation a::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    bottom: -7px;
-
-    width: 100%;
-    height: 2px;
-
-    background: var(--accent-gold);
-
-    transform: scaleX(0);
-    transform-origin: center;
-
-    transition: transform var(--transition-fast);
-}
-
-
-.navigation a:hover,
-.navigation a.active {
-    color: var(--accent-gold);
-}
-
-
-.navigation a:hover::after,
-.navigation a.active::after {
-    transform: scaleX(1);
-}
-
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-
-.header-quote {
-    display: none;
-}
-
-
-.menu-toggle {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 44px;
-    height: 44px;
-
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-
-    background: transparent;
-    color: var(--white);
-
-    font-size: 1.45rem;
-
-    transition:
-        background-color var(--transition-fast),
-        border-color var(--transition-fast);
-}
-
-
-.menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--accent-gold);
-}
-
-
-/* Mobile navigation state */
-
-.navigation.is-open {
-    position: absolute;
-
-    top: 100%;
-    left: 0;
-
-    display: block;
-
-    width: 100%;
-
-    padding: 18px 16px 24px;
-
-    background: var(--deep-red);
-
-    box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.20);
-}
-
-
-.navigation.is-open ul {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-}
-
-
-.navigation.is-open li + li {
-    border-top:
-        1px solid rgba(255, 255, 255, 0.1);
-}
-
-
-.navigation.is-open a {
-    display: block;
-    padding: 14px 8px;
-}
-
-
-.navigation.is-open a::after {
-    display: none;
-}
-
 
 /* =========================================================
-   8. HERO
+   8. PROFILE
    ========================================================= */
 
-.hero-section {
+.profile-section {
     position: relative;
-
     min-height: 720px;
-
     display: flex;
     align-items: center;
-
     padding-top: var(--header-height);
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(40, 5, 5, 0.90) 0%,
-            rgba(84, 12, 10, 0.68) 48%,
-            rgba(84, 12, 10, 0.35) 100%
-        ),
-        url("images/catering/catering-hero.jpg")
-        center / cover no-repeat;
+       background:
+        url("Images/Piqaunt-Food/Mr-Piquant.jpg") center/cover no-repeat;
 
     color: var(--white);
 }
 
 
-.hero-overlay {
+.profile-overlay {
     width: 100%;
 }
 
 
-.hero-content {
+.profile-content {
     max-width: 850px;
 
     padding-top: 70px;
@@ -585,14 +463,14 @@ p {
 }
 
 
-.hero-tag {
+.profile-tag {
     display: inline-block;
 
     margin-bottom: 20px;
 
     color: var(--accent-gold);
 
-    font-size: 0.82rem;
+    font-size: xx-large;
     font-weight: 900;
 
     letter-spacing: 0.17em;
@@ -600,7 +478,7 @@ p {
 }
 
 
-.hero-content h1 {
+.profile-content h1 {
     max-width: 850px;
 
     margin-bottom: 24px;
@@ -612,18 +490,22 @@ p {
 }
 
 
-.hero-content p {
+.profile-content p {
     max-width: 700px;
 
     margin-bottom: 34px;
 
-    color: rgba(255, 255, 255, 0.91);
+    color: var(--white);
+
+    text-shadow:
+        0 5px 18px rgba(180, 88, 2, 0.603);
 
     font-size: 1.05rem;
+    font-weight: 700;
 }
 
 
-.hero-buttons {
+.profile-buttons {
     display: flex;
     flex-wrap: wrap;
 
@@ -732,7 +614,18 @@ p {
 
 
 .about-catering {
-    background: var(--warm-white);
+
+        background:
+        radial-gradient(
+            circle at 70% 25%,
+             rgba(177, 136, 34, 0.308),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+                rgba(141, 2, 2, 0.658),
+                rgba(204, 77, 3, 0.753)
+        );
 }
 
 
@@ -747,7 +640,17 @@ p {
 
 
 .catering-services {
-    background: var(--white);
+     background:
+        radial-gradient(
+            circle at 70% 25%,
+             rgba(177, 136, 34, 0.308),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+                rgba(141, 2, 2, 0.658),
+                rgba(204, 77, 3, 0.753)
+        );
 }
 
 
@@ -757,7 +660,17 @@ p {
 
 
 .signature-menu {
-    background: var(--warm-white);
+        background:
+        radial-gradient(
+            circle at 70% 25%,
+             rgba(177, 136, 34, 0.308),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+                rgba(141, 2, 2, 0.658),
+                rgba(204, 77, 3, 0.753)
+        );
 }
 
 
@@ -1099,14 +1012,10 @@ p {
 
 .package-type {
     display: inline-block;
-
     margin-bottom: 12px;
-
     color: var(--accent-gold);
-
     font-size: 0.78rem;
     font-weight: 900;
-
     letter-spacing: 0.15em;
     text-transform: uppercase;
 }
@@ -1114,45 +1023,35 @@ p {
 
 .package-card h3 {
     margin-bottom: 20px;
-
     color: var(--white);
 }
 
 
 .package-card ul {
     display: grid;
-
     gap: 11px;
-
     margin-bottom: 28px;
 }
 
 
 .package-card li {
     position: relative;
-
     padding-left: 23px;
-
     color: rgba(255, 255, 255, 0.82);
 }
 
 
 .package-card li::before {
     content: "✓";
-
     position: absolute;
-
     left: 0;
-
     color: var(--accent-gold);
-
     font-weight: 900;
 }
 
 
 .package-card p {
     margin-bottom: 28px;
-
     color: rgba(255, 255, 255, 0.82);
 }
 
@@ -1548,48 +1447,65 @@ p {
 
 
 /* =========================================================
-   20. CONTACT
-   ========================================================= */
+                    20. CONTACT
+========================================================= */
 
 .contact-grid {
     display: grid;
-
     grid-template-columns:
         repeat(1, minmax(0, 1fr));
-
     gap: 40px;
 }
 
-
 .contact-column h2 {
     margin-bottom: 20px;
-
     color: var(--white);
 }
 
-
 .contact-column p {
     margin-bottom: 12px;
-
     color: rgba(255, 255, 255, 0.75);
 }
 
 
 .contact-column a {
     display: block;
-
     width: fit-content;
-
     margin-bottom: 10px;
-
     color: var(--accent-gold);
-
     font-weight: 700;
-
     transition:
         color var(--transition-fast);
 }
 
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.4rem;
+    border-radius: 40px;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.facebook { background: #1877F2; }
+.instagram { background: linear-gradient(45deg, #833AB4, #E1306C, #FCAF45); }
+.tiktok { background: #000; border: 1px solid #ffffff30; }
+.email { background: #0d5f20; }
+
+.social:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+}
 
 .contact-column a:hover {
     color: var(--white);
@@ -1597,28 +1513,25 @@ p {
 
 
 /* =========================================================
-   21. FINAL CTA
-   ========================================================= */
+                    21. FINAL CTA
+========================================================= */
 
 .cta-section h2 {
     margin-bottom: 18px;
-
     color: var(--white);
 }
 
 
 .cta-section p {
     margin: 0 auto 28px;
-
     color: rgba(255, 255, 255, 0.85);
 }
 
 
 /* =========================================================
-   22. FOOTER
-   ========================================================= */
-
-.footer {
+                    22. FOOTER
+========================================================= */
+.footer-content {
     background:
         linear-gradient(
             180deg,
@@ -1627,6 +1540,7 @@ p {
         );
 
     color: var(--white);
+    border-top: 1px solid rgba(246, 195, 66, 0.18);
 
     padding: 65px 0 0;
 }
@@ -1659,7 +1573,7 @@ p {
 }
 
 
-.footer h3 {
+.footer-content h3 {
     margin-bottom: 18px;
 
     color: var(--accent-gold);
@@ -1672,6 +1586,17 @@ p {
     font-size: 1rem;
 }
 
+.footer-logo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease;
+}
 
 .footer-links {
     display: flex;
@@ -1735,44 +1660,50 @@ p {
 }
 
 
-/* =========================================================
-   23. WHATSAPP FLOAT
-   ========================================================= */
-
+/*============================== WHATSAPP FLOAT BUTTON ===============================*/
 .whatsapp-float {
     position: fixed;
-
-    right: 18px;
-    bottom: 18px;
-
-    z-index: 900;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 52px;
-    height: 52px;
-
+    right: 25px;
+    bottom: 25px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-
-    background: #25d366;
-
-    color: var(--white);
-
-    font-size: 1.35rem;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.25);
-
-    transition:
-        transform var(--transition-fast);
+    background: #25D366;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 2rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,.35);
+    z-index: 9999;
+    transition: .3s;
 }
 
-
 .whatsapp-float:hover {
-    transform: translateY(-4px) scale(1.04);
+    transform: scale(1.12);
+    background: #1ebe5d;
+}
+
+.whatsapp-float::before {
+    content: "Chat With Us";
+    position: absolute;
+    right: 80px;
+    background: #003408;
+    color: white;
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.whatsapp-float:hover::before {
+    opacity: 1;
+    visibility: visible;
 }
 
 
@@ -2035,12 +1966,12 @@ p {
     }
 
 
-    .hero-section {
+    .profile-section {
         min-height: 800px;
     }
 
 
-    .hero-content {
+    .profile-content {
         padding-top: 100px;
         padding-bottom: 100px;
     }
@@ -2109,7 +2040,7 @@ p {
 
 @media (min-width: 1200px) {
 
-    .hero-section {
+    .profile-section {
         min-height: 850px;
     }
 
@@ -2162,24 +2093,24 @@ p {
     }
 
 
-    .hero-content {
+    .profile-content {
         padding-top: 50px;
         padding-bottom: 50px;
     }
 
 
-    .hero-content h1 {
+    .profile-content h1 {
         font-size: 2.25rem;
     }
 
 
-    .hero-buttons {
+    .profile-buttons {
         flex-direction: column;
         align-items: stretch;
     }
 
 
-    .hero-buttons .btn {
+    .profile-buttons .btn {
         width: 100%;
     }
 
